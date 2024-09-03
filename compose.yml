@@ -1,0 +1,43 @@
+version: '3.4'
+
+services:
+  # grpcui:
+  #   image: wongnai/grpcui:master
+  #   container_name: grpcui
+  #   ports:
+  #     - "8080:8080"
+  #   environment:
+  #     - GRPCUI_SERVER=server:5131
+  #   depends_on:
+  #     - server
+
+
+
+
+  
+  client:  
+    image: consoletestclient
+    container_name: ConsoleTestClient
+    tty: true  
+    command: sleep infinity
+    ports:
+      - "5134:5134"
+    build:
+      context: .
+      dockerfile: ConsoleTestClient/Dockerfile
+    depends_on:
+      - server   
+
+  server:  
+    image: grpcserverprocess
+    container_name: GrpcServerProcess  
+    build:
+      context: .
+      dockerfile: GrpcServerProcess/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=password
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/certificates/aspnetapp.pfx
+    volumes:
+      - ~/.aspnet/https:/certificates:ro

@@ -18,14 +18,14 @@ RUN dotnet publish "GrpcServerProcess/GrpcServerProcess.csproj" -c Release -o /a
 # RUN dotnet tool update -g linux-dev-certs doesnt worl
 # RUN dotnet-linux-dev-certs install
 RUN mkdir -p /app/certificates
-RUN dotnet dev-certs https --check
-COPY certificates/aspnetapp.pfx /app/certificates
+# RUN dotnet dev-certs https --check
+COPY certificates/aspnetapp.pfx /app/certificates/
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app .
 # RUN dotnet dev-certs https --trust not useful
 
-RUN dotnet dev-certs https --check
+# RUN dotnet dev-certs https --check
 
 ENTRYPOINT ["dotnet", "GrpcServerProcess.dll"]
