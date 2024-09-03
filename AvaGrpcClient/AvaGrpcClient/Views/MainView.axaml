@@ -1,0 +1,145 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:AvaGrpcClient.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="AvaGrpcClient.Views.MainView">
+	<UserControl.Styles>
+		<Style Selector="StackPanel">
+			<Setter Property="HorizontalAlignment"
+					Value="Left"/>
+			<Setter Property="VerticalAlignment"
+					Value="Top"/>
+			<Setter Property="Margin"
+					Value="0,0,0,20"/>
+		</Style>
+		<Style Selector="TextBlock">
+			<Setter Property="HorizontalAlignment"
+					Value="Left"/>
+			<Setter Property="VerticalAlignment"
+					Value="Center"/>
+			<Setter Property="FontFamily"
+					Value="Times New Roman"/>
+			<Setter Property="FontWeight"
+					Value="Bold"/>
+			<Setter Property="FontSize"
+					Value="20"/>
+			<Setter Property="Margin"
+					Value="0,0,0,8"/>
+		</Style>
+
+		<Style Selector="TextBlock.ResultName">
+			<Setter Property="Margin"
+					Value="0,0,0,0"/>
+			<Setter Property="FontSize"
+					Value="16"/>
+		</Style>
+		<Style Selector="TextBlock.Result">
+			<Setter Property="FontWeight"
+					Value="Normal"/>
+			<Setter Property="FontSize"
+					Value="16"/>
+			<Setter Property="Margin"
+					Value="0,0,0,0"/>
+		</Style>
+		<Style Selector="Button">
+			<Setter Property="Background"
+					Value="LightGray"/>
+			<Setter Property="HorizontalAlignment"
+					Value="Left"/>
+			<Setter Property="Margin"
+					Value="0,0,10,0"/>
+		</Style>
+	</UserControl.Styles>
+	<Grid RowDefinitions="Auto,Auto,Auto,Auto,*"
+		  Margin="10">
+		<StackPanel >
+			<TextBlock Text="ASP gRPC Samples"
+					   FontSize="40"
+					   FontWeight="Bold"
+					   Margin="0,0,0,20"
+					   HorizontalAlignment="Left"/>
+			<StackPanel Orientation="Horizontal">
+				<TextBlock Text="Enter Name: "
+						   FontWeight="Normal"
+						   Margin="0"
+						   VerticalAlignment="Center"
+						   FontSize="16"/>
+				<TextBox x:Name="NameToEnter"
+						 Text="Nick"
+						 Width="150"
+						 Height="30"
+						 Margin="0"
+						 VerticalAlignment="Center"/>
+			</StackPanel>		
+		</StackPanel>
+		<StackPanel Grid.Row="1">
+			<TextBlock Text="Non-Streaming (Single Value) gRPC Sample:"/>
+			<Button x:Name="TestUnaryHelloButton" 
+					Content="Get Single Greeting"/>
+			<StackPanel Orientation="Horizontal">
+				<TextBlock Text="Result: "
+						   Classes="ResultName"/>
+				<TextBlock x:Name="HelloResultText"
+						   Classes="Result"/>
+			</StackPanel>
+		</StackPanel>
+		<StackPanel Grid.Row="2">
+			<TextBlock Text="Server Streaming gRPC Sample (multiple greetings from the server):"/>
+			<StackPanel Orientation="Horizontal">
+				<Button x:Name="TestStreamingServerButton"
+						Content="Get Multiple Greetings"/>
+				<Button x:Name="TestStreamingServerWithErrorButton"
+						Content="Get Multiple Greetings with Error"/>
+				<Button x:Name="TestStreamingServerCancelButton"
+						Content="Cancel Server Streaming"/>
+				
+			</StackPanel>
+
+			<StackPanel Orientation="Horizontal">
+				<TextBlock Text="Result: " Classes="ResultName"/>
+				<TextBlock x:Name="StreamingServerResultsText"
+						   Classes="Result"/>
+				<TextBlock x:Name="StreamingErrorText"
+						   Classes="Result"
+						   Margin="20,0,0,0"/>
+			</StackPanel>
+		</StackPanel>
+		<StackPanel Grid.Row="3">
+			<TextBlock Text="No gRPC Client Streaming from Browser (unfortunately). Multiple names coming from client will be accumulated (takes 5 seconds) and sent together to the server.:"
+					   TextWrapping="WrapWithOverflow"/>
+
+			<Button x:Name="TestStreamingClientButton"
+					Content="Test Streaming Client"/>
+			<StackPanel Orientation="Horizontal">
+				<TextBlock Text="Result: " Classes="ResultName"/>
+				<TextBlock x:Name="StreamingClientResultsText" Classes="Result"/>
+			</StackPanel>
+		</StackPanel>
+
+		<Grid Grid.Row="4"
+			  RowDefinitions="Auto, Auto, *">
+			<TextBlock TextWrapping="WrapWithOverflow" 
+					   Text="No gRPC Client Streaming from the browser (Unfortunately). All the client streaming messages from the browser will be accumulated and sent together to the server at once (takes approx 3 seconds). And only then server streaming will start:"/>
+
+			<Button x:Name="TestStreamingClientServerButton"
+					Grid.Row="1"
+					Content="Test Streaming Client and Server"/>
+			<Grid Grid.Row="2"
+				  RowDefinitions="Auto, *">
+				<TextBlock Text="Result: "
+						   Classes="ResultName"/>
+				<ScrollViewer Grid.Row="1"
+							  VerticalAlignment="Top"
+							  HorizontalAlignment="Left"
+							  HorizontalScrollBarVisibility="Disabled"
+							  VerticalScrollBarVisibility="Visible">
+					<TextBlock x:Name="StreamingClientServerResultsText"
+							   Classes="Result"
+							   Margin="10,10,40,10"/>
+				</ScrollViewer>
+			</Grid>
+		</Grid>
+	</Grid>
+</UserControl>
