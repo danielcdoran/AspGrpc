@@ -1,10 +1,20 @@
 ﻿using Grpc.Core;
 using Grpc.Net.Client;
 using simple;
+using System.Net.Http;
 
 // get the channel connecting the client to the server
-var channel =
-    GrpcChannel.ForAddress("https://localhost:55003");
+// var channel =
+//     GrpcChannel.ForAddress("https://server:55003");
+
+var httpHandler = new HttpClientHandler();  
+// https://learn.microsoft.com/en-us/answers/questions/693913/grpc-the-remote-certificate-is-invalid-because-of
+// Return `true` to allow certificates that are untrusted/invalid  
+httpHandler.ServerCertificateCustomValidationCallback =   
+    HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;  
+  
+var channel = GrpcChannel.ForAddress("https://server:55003",  
+    new GrpcChannelOptions { HttpHandler = httpHandler });  
 
 // create the GreeterClient service
 var greeterGrpcClient = new Greeter.GreeterClient(channel);
