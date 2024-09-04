@@ -4,7 +4,7 @@ using simple;
 
 // get the channel connecting the client to the server
 var channel =
-    GrpcChannel.ForAddress("https://server:55003");
+    GrpcChannel.ForAddress("https://localhost:55003");
 
 // create the GreeterClient service
 var greeterGrpcClient = new Greeter.GreeterClient(channel);
