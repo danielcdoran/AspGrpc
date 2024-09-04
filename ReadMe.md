@@ -14,6 +14,8 @@ https://github.com/dotnet/AspNetCore.Docs/issues/6199
 https://learn.microsoft.com/en-us/aspnet/core/security/enforcing-ssl?view=aspnetcore-8.0&tabs=visual-studio%2Clinux-ubuntu#trust-the-aspnet-core-https-development-certificate-on-windows-and-macos
 
 https://github.com/dotnet/dotnet-docker/blob/main/samples/run-aspnetcore-https-development.md
+https://docs.servicestack.net/netcore-localhost-cert#accessing-from-native-applications
+talks about appsettings.Development.json
 
 
 Create certificate directory on my PC
