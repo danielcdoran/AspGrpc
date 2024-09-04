@@ -48,6 +48,7 @@ server set in apsettings.json needs to be
 to allow any item to call this service needs to be https://*:5503
 
 docker-compose up --build
+Output looks like docker-compose_output.png
 
 Problem
 I dont seem to have the TLS configured correctly or the certificate is not correct. I have instituted a TLS certificate bypass to get this to work
